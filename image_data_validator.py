@@ -28,7 +28,7 @@ class ImageDataValidator:
     images (dict): Dictionary mapping file paths to file names for all valid images.
 
     Methods:
-    
+
     OBS: example of required directory, list with 1 directory or more
     ['./name/test/class1',
      './name/test/class2',
@@ -76,7 +76,6 @@ class ImageDataValidator:
 
                 for filename in os.listdir(directory):
                     path = os.path.join(directory, filename)
-                    images[path] = filename
                     class_name = directory  
 
                     if not self.check_extension(path, self.ver_extensions):
@@ -111,7 +110,8 @@ class ImageDataValidator:
                             'issue': 'Dimension check failed'
                         })
                         #continue
-
+                        
+                    images[path] = filename
                     self.find_duplicate_images(path, filename, class_name)
 
         self.sizes = sizes_wrapper
@@ -276,7 +276,7 @@ class ImageDataValidator:
         except (IOError, SyntaxError) as e:
             return False
         
-    def __calculate_md5(self, file_path: str):
+    def __calculate_md5(self, file_path:str):
         """
         Computes the MD5 hash of a file.
 
